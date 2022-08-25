@@ -1,0 +1,4 @@
+project: PROJECT
+target: jbig2_fuzzer
+cmds:
+- cmd: /out/jbig2_fuzzer
