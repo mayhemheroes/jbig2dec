@@ -18,10 +18,7 @@ FROM gcr.io/oss-fuzz-base/base-builder
 RUN apt-get update && apt-get install -y make libtool pkg-config vim libreadline-dev wget autoconf
 COPY . jbig2dec
 RUN rm -rf jbig2dec/mayhem
-RUN mkdir tests
-RUN cp $SRC/jbig2dec/annex-h.jbig2 tests/annex-h.jb2
-RUN cd tests && wget https://jbig2dec.com/tests/t89-halftone.zip && unzip t89-halftone.zip
-RUN cd tests && wget https://jbig2dec.com/tests/jb2streams.zip && unzip jb2streams.zip
+RUN mkdir tests && cp $SRC/jbig2dec/annex-h.jbig2 tests/annex-h.jb2
 RUN cd tests && zip -q $SRC/jbig2_fuzzer_seed_corpus.zip *.jb2
 RUN rm -rf tests
 COPY mayhem/*.dict $SRC/

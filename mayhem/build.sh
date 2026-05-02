@@ -15,13 +15,17 @@
 #
 ################################################################################
 
+# Prevent clang 22 from emitting DWARF 5 (unsupported by old binutils/elfutils)
+export CFLAGS="$CFLAGS -gdwarf-4"
+export CXXFLAGS="$CXXFLAGS -gdwarf-4"
+
 cd ${SRC}/jbig2dec
 ./autogen.sh
 make distclean
 
 mkdir -p ${WORK}/jbig2dec
 cd ${WORK}/jbig2dec
-${SRC}/jbig2dec/configure
+${SRC}/jbig2dec/configure --disable-maintainer-mode
 
 LDFLAGS="$CXXFLAGS" make -C ${WORK}/jbig2dec -j$(nproc)
 fuzz_target=jbig2_fuzzer
